@@ -1,3 +1,3 @@
-# E-Commerce Portal
+# E-Commerce Management App
 
 Website Link: [Live Demo]()
