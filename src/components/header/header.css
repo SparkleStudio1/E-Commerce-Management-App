@@ -1,0 +1,70 @@
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray);
+  transition: 0.4s ease;
+}
+
+.sidebar-toggler {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.sidebar-toggler-arrow {
+  transform: rotate(0deg);
+  transition: 0.4s;
+}
+
+.sidebar-toggler .opened {
+  transform: rotate(-180deg);
+}
+
+.greet > * {
+  margin: 0;
+}
+
+.greet p {
+  font-weight: 400;
+  opacity: 0.4;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .header {
+    height: 7.4em;
+    padding: 1.5em;
+  }
+
+  .sidebar-toggler-arrow {
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .greet {
+    margin-left: 2em;
+  }
+
+  .greet h3 {
+    font-size: 1.5em;
+    margin-bottom: 0.3em;
+  }
+
+  .greet p {
+    font-size: 1em;
+  }
+
+  .search-bar img {
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .profile img {
+    margin-left: 2.5em;
+    width: 4.5em;
+    height: 4.5em;
+  }
+}

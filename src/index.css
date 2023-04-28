@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  /* Colors */
+  --black: #272727;
+  --white: #ffffff;
+  --light: #f3f3f3;
+  --gray: #e3e3e3;
+  --blue: #4e61ff;
+
+  /* Fonts */
+  --inter: "Inter", sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100vh;
+}
+
+body {
+  overflow: hidden;
+  font-family: var(--inter);
+  font-weight: 500;
+  color: var(--black);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}

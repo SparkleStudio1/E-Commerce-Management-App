@@ -1,0 +1,104 @@
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--white);
+  border-right: 1px solid var(--gray);
+  height: 100%;
+  transition: 0.4s ease;
+}
+
+.brand-logo > h1 {
+  font-weight: 700;
+}
+
+.sidebar-closed .text {
+  display: none;
+}
+
+.sidebar-navlinks {
+  border-top: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+}
+
+.navlink {
+  text-decoration: none;
+  color: var(--black);
+  border-radius: 8px;
+}
+
+.navlink:hover {
+  color: var(--blue);
+}
+
+.navlink svg path {
+  fill: var(--black);
+}
+
+.navlink:hover svg path {
+  fill: var(--blue);
+}
+
+.navlinks .active {
+  background-color: var(--blue);
+  color: var(--white) !important;
+}
+
+.navlinks .active svg path {
+  fill: var(--white) !important;
+}
+
+.navlink,
+.navlink svg path {
+  transition: 0.3s;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1024px) {
+  .sidebar {
+    padding: 1em 1.5em 2em;
+  }
+
+  .sidebar-brand {
+    height: 5.8em;
+  }
+
+  .brand-logo > img {
+    width: 2.8em;
+    height: 2.8em;
+  }
+
+  .brand-logo > h1 {
+    font-size: 1.5em;
+    margin-left: 0.8em;
+  }
+
+  .navlinks {
+    padding: 2em 0 11em;
+  }
+
+  .navlink {
+    padding: 1em 1.5em;
+    font-size: 1em;
+    margin-bottom: 1em;
+  }
+
+  .navlink:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .navlink svg {
+    width: 1.6em;
+    height: 1.6em;
+    margin-right: 1em;
+  }
+
+  .sidebar-closed .navlinks {
+    padding: 2em 0.2em;
+  }
+
+  .sidebar-closed .navlink svg {
+    margin-right: 0em;
+  }
+}
