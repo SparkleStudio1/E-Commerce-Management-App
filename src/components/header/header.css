@@ -9,9 +9,15 @@
 }
 
 .sidebar-toggler {
-  display: inline-block;
-  position: relative;
+  position: absolute;
   cursor: pointer;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-image: url("../../../public/assets/icons/sidebar-toggler.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .sidebar-toggler-arrow {
@@ -39,13 +45,17 @@
     padding: 1.5em;
   }
 
+  .sidebar-toggler {
+    width: 4.5em;
+  }
+
   .sidebar-toggler-arrow {
     width: 1.3em;
     height: 1.3em;
   }
 
   .greet {
-    margin-left: 2em;
+    margin-left: 5em;
   }
 
   .greet h3 {

@@ -22,21 +22,35 @@
   border-bottom: 1px solid var(--gray);
 }
 
-.navlink {
+.sidebar-options {
+  /* height: 100%; */
+}
+
+.navlinks,
+.options {
+  width: 100%;
+}
+
+.navlink,
+.optionslink {
   text-decoration: none;
   color: var(--black);
   border-radius: 8px;
+  width: 100%;
 }
 
-.navlink:hover {
+.navlink:hover,
+.optionslink:hover {
   color: var(--blue);
 }
 
-.navlink svg path {
+.navlink svg path,
+.optionslink svg path {
   fill: var(--black);
 }
 
-.navlink:hover svg path {
+.navlink:hover svg path,
+.optionslink:hover svg path {
   fill: var(--blue);
 }
 
@@ -50,14 +64,20 @@
 }
 
 .navlink,
-.navlink svg path {
-  transition: 0.3s;
+.navlink svg path,
+.optionslink,
+.optionslink svg path {
+  transition: 0.5s ease;
 }
 
 /* Desktop */
 @media only screen and (min-width: 1024px) {
   .sidebar {
     padding: 1em 1.5em 2em;
+  }
+
+  .sidebar > div {
+    height: 100%;
   }
 
   .sidebar-brand {
@@ -74,31 +94,47 @@
     margin-left: 0.8em;
   }
 
-  .navlinks {
-    padding: 2em 0 11em;
+  .sidebar-navlinks {
+    padding: 2em 0 8em;
   }
 
-  .navlink {
-    padding: 1em 1.5em;
-    font-size: 1em;
+  .sidebar-options {
+    padding: 1em 0;
+  }
+
+  .navlink,
+  .optionslink {
+    padding: 1em 1.6em;
     margin-bottom: 1em;
   }
 
-  .navlink:last-of-type {
-    margin-bottom: 0;
+  .navlink:last-of-type,
+  .optionslink:last-of-type {
+    margin-bottom: 0 !important;
   }
 
-  .navlink svg {
-    width: 1.6em;
-    height: 1.6em;
-    margin-right: 1em;
+  .navlink svg,
+  .optionslink svg {
+    width: 1.4em;
+    height: 1.4em;
+    margin-right: 0.9em;
   }
 
-  .sidebar-closed .navlinks {
-    padding: 2em 0.2em;
+  .sidebar-closed .sidebar-navlinks {
+    padding: 2em 0.7em 8em;
   }
 
-  .sidebar-closed .navlink svg {
+  .sidebar-closed .sidebar-options {
+    padding: 2em 0.7em;
+  }
+
+  .sidebar-closed .navlink,
+  .sidebar-closed .optionslink {
+    padding: 1em 1.1em;
+  }
+
+  .sidebar-closed .navlink svg,
+  .sidebar-closed .optionslink svg {
     margin-right: 0em;
   }
 }

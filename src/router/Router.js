@@ -17,8 +17,8 @@ import Suppliers from "../pages/suppliers/Suppliers";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<RootLayout />}>
-        <Route index element={<Overview />} />
+      <Route path="/portal" element={<RootLayout />}>
+        <Route path="overview" element={<Overview />} />
         <Route path="categories" element={<Categories />} />
         <Route path="order-list" element={<OrderList />} />
         <Route path="products" element={<Products />} />

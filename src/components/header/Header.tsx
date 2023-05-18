@@ -26,7 +26,7 @@ function Header({ handleSidebar, open, headerRef, sidebarRef }: HeaderProps) {
           onClick={handleSidebar}
         >
           <img
-            src="./assets/icons/arrow-right-s-line.svg"
+            src="/assets/icons/arrow-right-s-line.svg"
             className={`sidebar-toggler-arrow ${open ? "opened" : ""}`}
             alt="sidebar-toggler-arrow-icon"
           />
@@ -38,10 +38,10 @@ function Header({ handleSidebar, open, headerRef, sidebarRef }: HeaderProps) {
       </div>
       <div className="d-flex justify-content-center align-items-center">
         <div className="search-bar">
-          <img src="./assets/icons/search.svg" alt="search-icon" />
+          <img src="/assets/icons/search.svg" alt="search-icon" />
         </div>
         <div className="profile">
-          <img src="./assets/images/profile.png" alt="profile-img" />
+          <img src="/assets/images/profile.png" alt="profile-img" />
         </div>
       </div>
     </div>
