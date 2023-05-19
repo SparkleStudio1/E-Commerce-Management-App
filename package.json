@@ -13,6 +13,8 @@
     "@types/node": "^16.18.25",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
+    "antd": "^5.5.0",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",

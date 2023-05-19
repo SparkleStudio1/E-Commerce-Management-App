@@ -1,0 +1,49 @@
+/* Loader */
+.loader-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 87vh;
+}
+
+.spinner {
+  display: grid;
+  border-radius: 50%;
+  border-color: transparent;
+  animation: spinner-anim 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+  content: "";
+  grid-area: 1/1;
+  border: inherit;
+  border-radius: 50%;
+}
+
+.spinner::before {
+  border-color: var(--blue) #0000;
+  animation: inherit;
+  animation-duration: 0.5s;
+  animation-direction: reverse;
+}
+
+@keyframes spinner-anim {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  .loader-container {
+    height: 87vh;
+  }
+
+  .spinner {
+    width: 4em;
+    height: 4em;
+    border: 5px solid transparent;
+  }
+}

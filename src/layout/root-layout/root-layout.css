@@ -10,7 +10,12 @@ main {
 }
 
 main > div {
+  position: relative;
   transition: 0.4s ease;
+}
+
+main > div > div {
+  position: relative;
 }
 
 /* Desktop */

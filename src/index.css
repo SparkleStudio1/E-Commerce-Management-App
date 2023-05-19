@@ -2,11 +2,17 @@
 
 :root {
   /* Colors */
-  --black: #272727;
+  --black: #434343;
   --white: #ffffff;
-  --light: #f3f3f3;
+  --light: #f7f7f7;
   --gray: #e3e3e3;
+  --light-blue: #69b7ff;
   --blue: #4e61ff;
+  --green: ##6cd67e;
+  --red: #ff696c;
+  --purple: #9069ff;
+  --pink: #ff69b1;
+  --orange: #ffb169;
 
   /* Fonts */
   --inter: "Inter", sans-serif;
