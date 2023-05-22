@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 // Layouts
-import RootLayout from "../layout/root-layout/RootLayout";
+import RootLayout from "../layout/portal-layout/PortalLayout";
 // Pages
 import NotFound from "../pages/not-found/NotFound";
 import Overview from "../pages/overview/Overview";

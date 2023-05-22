@@ -1,1 +1,224 @@
 /* Table */
+.data-table {
+  font-family: var(--inter) !important;
+  font-weight: 400 !important;
+}
+
+.ant-input-wrapper > input {
+  border-color: var(--gray) !important;
+  border-right: none !important;
+  color: var(--black) !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 500 !important;
+}
+
+.ant-input-wrapper > span > button svg:hover,
+.ant-input-wrapper > span > button:hover svg {
+  fill: var(--light-blue) !important;
+}
+
+.ant-input-wrapper > span > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: var(--gray) !important;
+  border-left: none !important;
+}
+
+/* Table Rows And Columns */
+.ant-table,
+.ant-table-content thead th {
+  background: transparent !important;
+  color: var(--black) !important;
+  font-family: var(--inter) !important;
+}
+
+.ant-table-content th {
+  font-weight: 700 !important;
+}
+
+.ant-table-content td,
+.ant-table-content th {
+  border-color: var(--gray) !important;
+  text-transform: capitalize;
+}
+
+.ant-table-row:hover .ant-table-cell-row-hover {
+  background: #e7e7e7 !important;
+}
+
+.ant-table-row-selected .ant-table-cell {
+  background: #f0f0f0 !important;
+}
+
+.ant-table-column-sorter {
+  color: var(--black) !important;
+}
+
+.ant-table-column-has-sorters .active {
+  color: #12c430 !important;
+}
+
+.action-button {
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  transition: 0.3s !important;
+}
+
+.action-button:hover {
+  border-color: var(--green) !important;
+}
+
+/* Table Selection Checkboxes */
+:where(.css-dev-only-do-not-override-15rg2km).ant-checkbox-checked:after {
+  border: none !important;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-checkbox-indeterminate
+  .ant-checkbox-inner:after {
+  background-color: var(--green);
+}
+
+.ant-checkbox-inner {
+  border: 1px solid var(--black) !important;
+  border-radius: 2px !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--green) !important;
+  border-color: var(--green) !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner::after {
+  border-color: var(--white) !important;
+}
+
+/* Table Buttons */
+.next-button,
+.prev-button,
+.ant-pagination-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+  border: 1px solid var(--gray) !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: 0.3s !important;
+}
+
+.next-button:hover,
+.prev-button:hover,
+.ant-pagination-item-active,
+.ant-pagination-item-active:hover {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  border-color: var(--blue) !important;
+}
+
+.ant-pagination-item:hover {
+  border-color: var(--blue) !important;
+}
+
+/* Pagination */
+.ant-pagination {
+  position: relative;
+}
+
+.ant-pagination-total-text {
+  position: absolute;
+  font-weight: 500;
+  left: 0;
+}
+
+/* Desktop */
+@media only screen and (width >= 1024px) {
+  /* Table */
+  .delete > button,
+  .table-header .search-bar {
+    margin-right: 1em;
+  }
+
+  .table-header {
+    margin-bottom: 1.5em;
+  }
+
+  .ant-input-wrapper > input,
+  .ant-input-wrapper > span > button {
+    height: 3em !important;
+    font-size: 1.1em;
+  }
+
+  .ant-input-wrapper,
+  .ant-input-group-wrapper {
+    width: 20em !important;
+  }
+
+  .ant-table-content th {
+    font-size: 1.1em;
+  }
+
+  .ant-table-content td {
+    font-size: 1em;
+  }
+
+  :where(.css-dev-only-do-not-override-15rg2km).ant-table-wrapper
+    .ant-table-thead
+    > tr
+    > th,
+  :where(.css-dev-only-do-not-override-15rg2km).ant-table-wrapper
+    .ant-table-tbody
+    > tr
+    > th,
+  :where(.css-dev-only-do-not-override-15rg2km).ant-table-wrapper
+    .ant-table-tbody
+    > tr
+    > td,
+  :where(.css-dev-only-do-not-override-15rg2km).ant-table-wrapper
+    tfoot
+    > tr
+    > th,
+  :where(.css-dev-only-do-not-override-15rg2km).ant-table-wrapper
+    tfoot
+    > tr
+    > td {
+    padding: 0.8em !important;
+  }
+
+  .action-button {
+    height: 2.8em !important;
+    padding: 1.2em 0.7em !important;
+  }
+
+  .action-button > img {
+    width: 1.5em;
+    height: 1.8em;
+  }
+
+  .ant-pagination {
+    margin-top: 2em !important;
+  }
+
+  .ant-pagination-total-text {
+    font-size: 1.1em;
+  }
+
+  .table-header .button,
+  .next-button,
+  .prev-button,
+  .ant-pagination-item {
+    font-size: 1em !important;
+    height: 2.8em !important;
+  }
+
+  .table-header .button,
+  .next-button,
+  .prev-button {
+    padding: 0.8em 1.5em !important;
+  }
+
+  .ant-pagination-item {
+    padding: 0.8em 0.7em !important;
+  }
+}

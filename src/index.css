@@ -8,7 +8,7 @@
   --gray: #e3e3e3;
   --light-blue: #69b7ff;
   --blue: #4e61ff;
-  --green: ##6cd67e;
+  --green: #6cd67e;
   --red: #ff696c;
   --purple: #9069ff;
   --pink: #ff69b1;
@@ -38,4 +38,36 @@ h4,
 h5,
 h6 {
   font-weight: 600;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 8px; 
+}
+
+/* Button */
+.button {
+  text-transform: capitalize !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: 0.3s !important;
+}
+
+.button:hover {
+  opacity: 0.9;
 }

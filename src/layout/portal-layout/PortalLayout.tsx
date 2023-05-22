@@ -1,4 +1,4 @@
-import "./root-layout.css";
+import "./portal-layout.css";
 import { useState, useEffect, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
@@ -37,8 +37,8 @@ function RootLayout() {
         sidebarRef={sidebarRef}
       />
       {/* Sidebar */}
-      <Sidebar open={open} sidebarRef={sidebarRef} />
       <main>
+        <Sidebar open={open} sidebarRef={sidebarRef} />
         {/* Render Routes */}
         <div ref={mainRef}>
           <Outlet />

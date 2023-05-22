@@ -1,3 +1,4 @@
+import "./categories.css"
 import { useState, useEffect } from "react";
 import { fetchData } from "../../functions/FetchData";
 import DataTable from "../../components/table/Table";
@@ -11,14 +12,16 @@ export interface ICategories {
 
 function Categories() {
   const [categoriesData, setCategoriesData] = useState<ICategories[]>([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    fetchData("https://localhost:7168/api/category").then((res) =>
-      setCategoriesData(res)
-    );
+    fetchData("https://localhost:7168/api/category").then((res) => {
+      setCategoriesData(res);
+      setLoader(false);
+    });
   }, []);
 
-  if (categoriesData.length === 0) return <Loader />;
+  if (loader) return <Loader />;
   return (
     <div className="categories" id="categories">
       <h1>Categories</h1>
