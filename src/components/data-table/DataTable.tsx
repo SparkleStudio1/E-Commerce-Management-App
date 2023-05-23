@@ -1,7 +1,9 @@
-import "./table.css";
-import { useState } from "react";
+import "./data-table.css";
+import { useState, useEffect } from "react";
+import { useGlobalContext } from "../../context/GlobalContext";
 import { fetchData } from "../../functions/FetchData";
 import { Table, Button, Input } from "antd";
+import { PagesType } from "../../context/GlobalContext";
 import type { ColumnsType } from "antd/es/table";
 import type { PaginationProps } from "antd/es/pagination";
 
@@ -10,15 +12,46 @@ const { Search } = Input;
 type DataTableProps<T extends Object> = {
   data: T[];
   setData: React.Dispatch<React.SetStateAction<T[]>>;
-  name: "category" | "product" | "supplier" | "shipper" | "order-list";
+  name: PagesType;
+  setOpenAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function DataTable<T extends Object>({
   data,
   setData,
   name,
+  setOpenAddNew,
 }: DataTableProps<T>) {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+
+  const { endpoint, setLoader } = useGlobalContext();
+
+  useEffect(() => {
+    const savedPage = localStorage.getItem("pageNumber");
+    if (savedPage) {
+      setCurrentPage(parseInt(savedPage));
+    } else {
+      setCurrentPage(1);
+    }
+  }, []);
+
+  const onSearch = () => {
+    const newData = data.filter((item: T | any) =>
+      item[Object.keys(item)[1]]
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    );
+
+    console.log(newData);
+    // if (newData.length > 0) {
+    //   // setData(newData);
+    // } else {
+    //   // setData(newData);
+    //   console.log("no match");
+    // }
+  };
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -33,13 +66,24 @@ function DataTable<T extends Object>({
 
   const deleteItems = () => {
     if (selectedRowKeys.length === 1) {
-      fetchData(`https://localhost:7168/api/${name}/${selectedRowKeys[0]}`, {
+      fetchData(`${endpoint}/${name}/${selectedRowKeys[0]}`, {
         method: "delete",
       })
-        .then(() => fetchData(`https://localhost:7168/api/${name}`))
-        .then((res) => setData(res));
+        .then(() => {
+          setLoader(true);
+          return fetchData(`${endpoint}/${name}`);
+        })
+        .then((res) => {
+          setData(res);
+          setLoader(false);
+        });
       console.log(...selectedRowKeys);
     }
+  };
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+    localStorage.setItem("pageNumber", `${page}`);
   };
 
   const columns: ColumnsType<T> =
@@ -72,7 +116,10 @@ function DataTable<T extends Object>({
             title: "Action",
             key: "action",
             render: () => (
-              <Button className="action-button d-flex justify-content-center align-items-center" title="Edit">
+              <Button
+                className="action-button d-flex justify-content-center align-items-center"
+                title="Edit"
+              >
                 <img src="/assets/icons/edit.svg" alt="edit-icon" />
               </Button>
             ),
@@ -89,7 +136,9 @@ function DataTable<T extends Object>({
       : [];
 
   const paginationConfig: PaginationProps = {
+    current: currentPage,
     pageSize: 8,
+    onChange: onPageChange,
     showTotal: (total: any, range: any) =>
       `Showing ${range[0]}-${range[1]} of ${total} items`,
     itemRender: (_, type, originalElement) => {
@@ -107,7 +156,11 @@ function DataTable<T extends Object>({
     <div className="data-table">
       <div className="table-header d-flex justify-content-between align-items-center">
         <div className="delete d-flex align-items-center">
-          <Button className="button" onClick={deleteItems} disabled={!hasSelected}>
+          <Button
+            className="button"
+            onClick={deleteItems}
+            disabled={!hasSelected}
+          >
             Delete
           </Button>
           <p className="m-0">
@@ -118,12 +171,17 @@ function DataTable<T extends Object>({
           <div className="search-bar">
             <Search
               placeholder={`Search ${name}...`}
-              // onSearch={onSearch}
-              style={{ width: 200 }}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+                setTimeout(() => onSearch(), 1000);
+              }}
+              value={searchValue}
             />
           </div>
           <div className="add-new-item">
-            <Button className="button">Add new {name}</Button>
+            <Button className="button" onClick={() => setOpenAddNew(true)}>
+              Add new {name}
+            </Button>
           </div>
         </div>
       </div>

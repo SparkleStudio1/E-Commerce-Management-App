@@ -8,7 +8,6 @@
   border-color: var(--gray) !important;
   border-right: none !important;
   color: var(--black) !important;
-  letter-spacing: 0.5px !important;
   font-weight: 500 !important;
 }
 
@@ -146,7 +145,7 @@
 
   .ant-input-wrapper > input,
   .ant-input-wrapper > span > button {
-    height: 3em !important;
+    height: 2.8em !important;
     font-size: 1.1em;
   }
 
@@ -209,16 +208,16 @@
   .prev-button,
   .ant-pagination-item {
     font-size: 1em !important;
-    height: 2.8em !important;
+    height: 2.6em !important;
   }
 
   .table-header .button,
   .next-button,
   .prev-button {
-    padding: 0.8em 1.5em !important;
+    padding: 0.7em 1.3em !important;
   }
 
   .ant-pagination-item {
-    padding: 0.8em 0.7em !important;
+    padding: 0.7em !important;
   }
 }
