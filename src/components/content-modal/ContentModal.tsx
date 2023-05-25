@@ -1,14 +1,15 @@
 import "./content-modal.css";
-import { ReactNode } from "react";
-import { Button, Modal, Form, Input } from "antd";
-import { PagesType, useGlobalContext } from "../../context/GlobalContext";
+import { useEffect, ReactNode } from "react";
 import { fetchData } from "../../functions/FetchData";
+import { useGlobalContext, PagesType } from "../../context/GlobalContext";
+import { Button, Modal, Form, Input } from "antd";
 
 type ContentModalProps<T> = {
   name: PagesType;
   setData: React.Dispatch<React.SetStateAction<T[]>>;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  type: string;
 };
 
 function ContentModal<T>({
@@ -16,11 +17,25 @@ function ContentModal<T>({
   setOpen,
   name,
   setData,
+  type,
 }: ContentModalProps<T>) {
   const [form] = Form.useForm();
+
   const { endpoint, setLoader } = useGlobalContext();
 
-  const handleFormSubmit = async (param: PagesType) => {
+  useEffect(() => {
+    form.resetFields();
+  }, [form]);
+
+  // ==================== Functions ====================
+
+  // Close Modal
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  // Create New Item For Table
+  const onSubmit = async (param: PagesType) => {
     fetchData(`${endpoint}/${param}`, {
       method: "post",
       data: form.getFieldsValue(),
@@ -34,24 +49,16 @@ function ContentModal<T>({
         setLoader(false);
       });
 
-    handleCancel();
+    onClose();
     form.resetFields();
   };
 
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  function renderSwitch(param: PagesType): ReactNode {
+  // Render Different Form Inputs For Different Content
+  const formRender = (param: PagesType): ReactNode => {
     switch (param) {
       case "category":
         return (
-          <Form
-            name="category form"
-            form={form}
-            onFinish={() => handleFormSubmit(name)}
-            autoComplete="off"
-          >
+          <>
             <Form.Item
               label="Category Name"
               name="categoryName"
@@ -73,29 +80,37 @@ function ContentModal<T>({
             >
               <Input />
             </Form.Item>
-          </Form>
+          </>
         );
       default:
         return;
     }
-  }
+  };
 
+  // ==================== Modal Component ====================
   return (
     <Modal
       title={`Add New ${name}`}
       centered
       open={open}
-      onCancel={handleCancel}
+      onCancel={onClose}
       footer={[
-        <Button key="cancel" onClick={() => handleCancel()}>
-          Cancel
+        <Button key="return" onClick={() => onClose()}>
+          Return
         </Button>,
         <Button key="submit" type="primary" onClick={() => form.submit()}>
           Submit
         </Button>,
       ]}
     >
-      {renderSwitch(name)}
+      <Form
+        name={`${name} form`}
+        form={form}
+        onFinish={() => onSubmit(name)}
+        autoComplete="off"
+      >
+        {formRender(name)}
+      </Form>
     </Modal>
   );
 }

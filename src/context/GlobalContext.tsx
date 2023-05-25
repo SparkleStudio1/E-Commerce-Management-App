@@ -8,19 +8,19 @@ export type PagesType =
   | "order-list";
 
 type GlobalContextTypes = {
-  endpoint: string | null;
+  endpoint: string;
   loader: boolean;
   setLoader: React.Dispatch<React.SetStateAction<boolean>>
 };
-
-const GlobalContext = createContext<GlobalContextTypes | null>(null);
 
 type GlobalContextProviderProps = {
   children: React.ReactNode;
 };
 
+const GlobalContext = createContext<GlobalContextTypes | null>(null);
+
 function GlobalContextProvider({ children }: GlobalContextProviderProps) {
-  const endpoint: string | null = "https://localhost:7168/api";
+  const endpoint: string = "https://localhost:7168/api";
   const [loader, setLoader] = useState(true);
 
   return (

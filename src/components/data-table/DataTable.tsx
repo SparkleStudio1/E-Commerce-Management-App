@@ -1,9 +1,8 @@
 import "./data-table.css";
 import { useState, useEffect } from "react";
-import { useGlobalContext } from "../../context/GlobalContext";
+import { useGlobalContext, PagesType } from "../../context/GlobalContext";
 import { fetchData } from "../../functions/FetchData";
 import { Table, Button, Input } from "antd";
-import { PagesType } from "../../context/GlobalContext";
 import type { ColumnsType } from "antd/es/table";
 import type { PaginationProps } from "antd/es/pagination";
 
@@ -13,21 +12,26 @@ type DataTableProps<T extends Object> = {
   data: T[];
   setData: React.Dispatch<React.SetStateAction<T[]>>;
   name: PagesType;
-  setOpenAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function DataTable<T extends Object>({
   data,
   setData,
   name,
-  setOpenAddNew,
+  setOpenModal,
+  setModalType
 }: DataTableProps<T>) {
+  const [tableData, setTableData] = useState<T[]>(data);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
 
   const { endpoint, setLoader } = useGlobalContext();
 
+  const hasSelected = selectedRowKeys.length > 0;
+
+  // Detect Table Pagination Current Page
   useEffect(() => {
     const savedPage = localStorage.getItem("pageNumber");
     if (savedPage) {
@@ -37,34 +41,22 @@ function DataTable<T extends Object>({
     }
   }, []);
 
-  const onSearch = () => {
-    const newData = data.filter((item: T | any) =>
-      item[Object.keys(item)[1]]
-        .toLowerCase()
-        .includes(searchValue.toLowerCase())
-    );
+  // ==================== Functions ====================
 
-    console.log(newData);
-    // if (newData.length > 0) {
-    //   // setData(newData);
-    // } else {
-    //   // setData(newData);
-    //   console.log("no match");
-    // }
+  // Filter Table Items With Name
+  const onSearch = (search: string) => {
+    if (search !== "") {
+      const newData = data.filter((item: T | any) =>
+        item[Object.keys(item)[1]].toLowerCase().includes(search.toLowerCase())
+      );
+      setTableData(newData);
+    } else {
+      setTableData(data);
+    }
   };
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
-
-  const hasSelected = selectedRowKeys.length > 0;
-
-  const deleteItems = () => {
+  // Delete Table Item/Items
+  const onDelete = () => {
     if (selectedRowKeys.length === 1) {
       fetchData(`${endpoint}/${name}/${selectedRowKeys[0]}`, {
         method: "delete",
@@ -74,19 +66,33 @@ function DataTable<T extends Object>({
           return fetchData(`${endpoint}/${name}`);
         })
         .then((res) => {
-          setData(res);
           setLoader(false);
+          setData(res);
         });
-      console.log(...selectedRowKeys);
     }
   };
 
+  // Table Page Change With Pagination, Set Current Page
   const onPageChange = (page: number) => {
     setCurrentPage(page);
     localStorage.setItem("pageNumber", `${page}`);
   };
 
-  const columns: ColumnsType<T> =
+  // Table Items Selection
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  // ==================== Table Components Config ====================
+
+  // Table Items Selector
+  const rowSelectionConfig = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  // Table Columns
+  const columnsConfig: ColumnsType<T> =
     data && data.length
       ? [
           ...Object.keys(data[0])?.map((key) => ({
@@ -127,14 +133,7 @@ function DataTable<T extends Object>({
         ]
       : [];
 
-  const tableData =
-    data && data.length
-      ? data?.map((item: any) => ({
-          ...item,
-          key: item[Object.keys(item)[0]],
-        }))
-      : [];
-
+  // Table Pagination
   const paginationConfig: PaginationProps = {
     current: currentPage,
     pageSize: 8,
@@ -152,15 +151,12 @@ function DataTable<T extends Object>({
     },
   };
 
+  // ==================== Table Component ====================
   return (
     <div className="data-table">
       <div className="table-header d-flex justify-content-between align-items-center">
         <div className="delete d-flex align-items-center">
-          <Button
-            className="button"
-            onClick={deleteItems}
-            disabled={!hasSelected}
-          >
+          <Button className="button" onClick={onDelete} disabled={!hasSelected}>
             Delete
           </Button>
           <p className="m-0">
@@ -171,27 +167,31 @@ function DataTable<T extends Object>({
           <div className="search-bar">
             <Search
               placeholder={`Search ${name}...`}
-              onChange={(e) => {
-                setSearchValue(e.target.value);
-                setTimeout(() => onSearch(), 1000);
-              }}
-              value={searchValue}
+              onChange={(e) => onSearch(e.target.value)}
             />
           </div>
           <div className="add-new-item">
-            <Button className="button" onClick={() => setOpenAddNew(true)}>
-              Add new {name}
+            <Button
+              className="button"
+              onClick={() => {
+                setOpenModal(true);
+                setModalType("add");
+              }}
+            >
+              Add {name}
             </Button>
           </div>
         </div>
       </div>
       <Table<T>
         className={`${name}-table`}
-        columns={columns}
-        dataSource={tableData}
-        rowSelection={rowSelection}
         pagination={paginationConfig}
-        tableLayout="auto"
+        rowSelection={rowSelectionConfig}
+        columns={columnsConfig}
+        dataSource={tableData.map((item: any) => ({
+          ...item,
+          key: item[Object.keys(item)[0]],
+        }))}
       />
     </div>
   );

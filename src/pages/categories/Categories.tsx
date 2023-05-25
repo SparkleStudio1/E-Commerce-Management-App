@@ -14,7 +14,8 @@ export interface ICategories {
 
 function Categories() {
   const [categoriesData, setCategoriesData] = useState<ICategories[]>([]);
-  const [openAddNew, setOpenAddNew] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const { endpoint, loader, setLoader } = useGlobalContext();
 
@@ -34,13 +35,15 @@ function Categories() {
         name="category"
         data={categoriesData}
         setData={setCategoriesData}
-        setOpenAddNew={setOpenAddNew}
+        setOpenModal={setOpenModal}
+        setModalType={setModalType}
       />
       <ContentModal<ICategories>
         name="category"
         setData={setCategoriesData}
-        open={openAddNew}
-        setOpen={setOpenAddNew}
+        open={openModal}
+        setOpen={setOpenModal}
+        type={modalType}
       />
     </div>
   );
